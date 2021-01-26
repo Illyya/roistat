@@ -29,6 +29,7 @@
         id="phone" 
         name="phone"
         v-model.trim="phone" 
+        @input="onlyNumbers"
       />
     </div>
     <div class="add-form__row">
@@ -90,6 +91,9 @@ export default {
           this.phone = '';
         }        
       }          
+    },
+    onlyNumbers() {
+      this.phone = this.phone.replace(/[^0-9+ ]/g, '');
     }
   },  
 };
