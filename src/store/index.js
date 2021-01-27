@@ -6,10 +6,10 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     tableData: [
-      { name: "Марина", phone: "+7 941 123 21 42" },
-      { name: "Петр", phone: "+7 941 123 21 42" },
-      { name: "Алексей", phone: "+7 941 123 21 42" },
-      { name: "Борис", phone: "+7 941 123 21 42" },
+      { name: "Марина", phone: "+7 941 123 21 42", isParent: true },
+      { name: "Петр", phone: "+7 941 123 21 42", isParent: true },
+      { name: "Алексей", phone: "+7 941 123 21 42", isParent: true },
+      { name: "Борис", phone: "+7 941 123 21 42", isParent: true },
     ],
     sortingDirection: true,
   },

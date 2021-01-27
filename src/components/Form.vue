@@ -37,7 +37,7 @@
       <select class="add-form__select" name="chief" id="chief" v-model="select">
         <option value=""></option>
         <option 
-          v-for="(select, index) in this.$store.state.tableData"
+          v-for="(select, index) in filterTableParent"
           :key="index"
           :value="select.name"          
         >
@@ -69,12 +69,20 @@ export default {
       select: ''
     };
   },
+  computed: {
+    filterTableParent() {
+      const tableData = this.$store.state.tableData;
+      const listParent = tableData.filter(el => el.isParent);
+
+      return listParent;
+    }
+  },
   methods: {
     hideForm() {
       this.$emit('hideForm')
     },
     saveData() {      
-      if(this.name.length > 0 && this.phone.length > 0) {
+      if (this.name.length > 0 && this.phone.length > 0) {
         if (this.select) {          
           this.$store.state.tableData.forEach((el, key) => {            
             if (el.name == this.select) {
@@ -85,7 +93,7 @@ export default {
           this.name = '';
           this.phone = '';
         } else {
-          this.$store.state.tableData.push({name: this.name, phone: this.phone});
+          this.$store.state.tableData.push({name: this.name, phone: this.phone, isParent: true});
           localStorage.setItem("data", JSON.stringify(this.$store.state.tableData));  
           this.name = '';
           this.phone = '';
