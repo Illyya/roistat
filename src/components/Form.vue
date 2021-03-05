@@ -1,6 +1,6 @@
 <template>
   <form 
-    @click.prevent 
+    @submit.prevent 
     class="app__add-form add-form" 
     action="#"
   >

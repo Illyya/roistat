@@ -93,6 +93,7 @@ export default {
   top: 50%;
   right: 5px;
   transform: translateY(-50%) rotate(180deg);
+  transition: .2s ease-out;
 }
 
 .rotateArrow {
