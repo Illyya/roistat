@@ -52,13 +52,9 @@ export default new Vuex.Store({
         return value.replace(/\s+/g, '');
       }      
       if (state.sortingDirection) {
-        state.tableData.sort(function (a, b) {          
-          return noSpaces(a.phone) - noSpaces(b.phone);
-        })
+        state.tableData.sort((a, b) => noSpaces(a.phone) - noSpaces(b.phone))
       } else {
-        state.tableData.sort(function (a, b) {          
-          return noSpaces(b.phone) - noSpaces(a.phone);
-        })
+        state.tableData.sort((a, b) => noSpaces(b.phone) - noSpaces(a.phone))
       }
     }
   }
