@@ -1,9 +1,6 @@
 <template>
   <div class="added-users">
-    <Button 
-      @showForm="showForm" class="added-users__btn" 
-      :btnMsg="btnMsg" 
-    />
+    <Button @showForm="showForm" class="added-users__btn" :btnMsg="btnMsg" />
     <Table class="added-users__table" />
   </div>
 </template>
@@ -22,12 +19,12 @@ export default {
     return {
       btnMsg: "Добавить",
     };
-  },  
+  },
   methods: {
     showForm() {
-      this.$emit('showForm')
-    }
-  }
+      this.$emit("showForm");
+    },
+  },
 };
 </script>
 

@@ -14,14 +14,21 @@
         </div>
       </td>
     </tr>
-    <tr
-      class="table__row"
-      :class="{ 'table__row-child': row.child }"
-      v-for="(row, index) in users"
-      :key="index"
-    >
-      <td class="table__td">{{ row.name }}</td>
-      <td class="table__td">{{ row.phone }}</td>
+    <tr class="table__row" v-for="(user, index) in users" :key="index">
+      <td class="table__td table__td_parent">{{ user.name }}</td>
+      <td class="table__td table__td_parent">{{ user.phone }}</td>
+      <td>
+        <table class="table">
+          <tr
+            v-for="(subordinate, index) in user.subordinates"
+            :key="index"
+            class="table__row-subordinate"
+          >
+            <td class="table__td">{{ subordinate.name }}</td>
+            <td class="table__td">{{ subordinate.phone }}</td>
+          </tr>
+        </table>
+      </td>
     </tr>
   </table>
 </template>
@@ -61,6 +68,9 @@ export default {
   }
 
   &__row {
+    display: flex;
+    flex-wrap: wrap;
+
     &:first-of-type {
       td {
         position: relative;
@@ -75,16 +85,22 @@ export default {
     }
   }
 
-  &__row-child {
+  &__row-subordinate {
+    display: flex;
+
     td:first-of-type {
-      display: block;
-      margin: -1px -1px 0 20px;
+      flex: 0.88;
+      margin: 0 0 0 20px;
     }
   }
 
   &__td {
+    flex: 1;
     padding: 10px 20px;
     border: 1px solid #919090;
+
+    &_parent {
+    }
   }
 }
 
@@ -93,7 +109,7 @@ export default {
   top: 50%;
   right: 5px;
   transform: translateY(-50%) rotate(180deg);
-  transition: .2s ease-out;
+  transition: 0.2s ease-out;
 }
 
 .rotateArrow {

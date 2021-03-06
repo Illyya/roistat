@@ -1,6 +1,9 @@
 <template>
-  <button 
-    @click="showForm(); saveData()" 
+  <button
+    @click="
+      showForm();
+      saveData();
+    "
     class="btn"
   >
     {{ btnMsg }}
@@ -15,12 +18,12 @@ export default {
   },
   methods: {
     showForm() {
-      this.$emit('showForm')
+      this.$emit("showForm");
     },
     saveData() {
-      this.$emit('saveData')
-    }
-  }
+      this.$emit("saveData");
+    },
+  },
 };
 </script>
 
