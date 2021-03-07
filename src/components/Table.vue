@@ -15,9 +15,21 @@
       </td>
     </tr>
     <tr class="table__row" v-for="(user, index) in users" :key="index">
-      <td class="table__td table__td_parent">{{ user.name }}</td>
+      <td
+        @click="hideShowSubordinates"
+        :class="{ 'cursor-pointer': user.subordinates.length > 0 }"
+        class="table__td table__td_parent"
+      >
+        {{ user.name }}
+        <span
+          v-if="user.subordinates.length > 0"
+          class="table__number-of-subordinates"
+        >
+          {{ user.subordinates.length }}
+        </span>
+      </td>
       <td class="table__td table__td_parent">{{ user.phone }}</td>
-      <td>
+      <td class="table__td_subordinate">
         <table class="table">
           <tr
             v-for="(subordinate, index) in user.subordinates"
@@ -54,6 +66,18 @@ export default {
     sortPhone() {
       this.$store.commit("sortPhone");
       this.phoneArrow = !this.phoneArrow;
+    },
+    hideShowSubordinates(e) {
+      const parent = e.target.parentElement;
+      const children = parent.children;
+
+      children.forEach((el) => {
+        if (el.matches(".table__td_subordinate")) {
+          el.style.display == "none"
+            ? (el.style.display = "block")
+            : (el.style.display = "none");
+        }
+      });
     },
   },
 };
@@ -95,11 +119,34 @@ export default {
   }
 
   &__td {
+    position: relative;
     flex: 1;
     padding: 10px 20px;
     border: 1px solid #919090;
 
     &_parent {
+    }
+  }
+
+  &__number-of-subordinates {
+    position: absolute;
+    width: 20px;
+    bottom: 0;
+    right: 0;
+    text-align: center;
+    color: rgb(80, 80, 80);
+    border-radius: 50%;
+    background: chartreuse;
+    animation: scale-in-center 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+    @keyframes scale-in-center {
+      0% {
+        transform: scale(0);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
     }
   }
 }
@@ -114,5 +161,9 @@ export default {
 
 .rotateArrow {
   transform: translateY(-50%) rotate(360deg);
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }
 </style>
