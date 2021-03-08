@@ -5,23 +5,24 @@
     <div class="add-form__row">
       <label class="add-form__label" for="name">Имя</label>
       <input
+        @input="firstCapitalLetter"
+        v-model.trim="name"
         class="add-form__input"
         type="text"
         name="name"
         id="name"
-        v-model.trim="name"
       />
     </div>
     <div class="add-form__row">
       <label class="add-form__label" for="phone">Телефон</label>
-      <input
-        class="add-form__input"
-        type="tel"
+      <input-mask
+        v-model="phone"
+        mask="+7\ 999 999 99 99"
+        maskChar=" "
         id="phone"
         name="phone"
-        v-model.trim="phone"
-        @input="onlyNumbers"
-      />
+        class="add-form__input"
+      ></input-mask>
     </div>
     <div class="add-form__row">
       <label class="add-form__label" for="chief">Начальник</label>
@@ -81,8 +82,14 @@ export default {
         }
       }
     },
-    onlyNumbers() {
-      this.phone = this.phone.replace(/[^0-9+ ]/g, "");
+    firstCapitalLetter() {
+      if (!this.name) return;
+
+      this.name = this.name
+        .replace(/\s+/g, " ")
+        .split(" ")
+        .map((el) => el[0].toUpperCase() + el.slice(1))
+        .join(" ");
     },
   },
 };
